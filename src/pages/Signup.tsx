@@ -4,14 +4,14 @@ import { twMerge } from "tailwind-merge";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Input from "../constants/Input";
-
-type Details = {
-  email: string;
-  password: string;
-};
+import { Details } from "../utils/types";
 
 const Signup = () => {
-  const [details, setDetails] = useState<Details>({ email: "", password: "" });
+  const [details, setDetails] = useState<Details>({
+    email: "",
+    password: "",
+    username: "",
+  });
   const { enqueueSnackbar } = useSnackbar();
   const mobileScreen = useMediaQuery({
     query: "(max-width: 850px)",
@@ -27,8 +27,7 @@ const Signup = () => {
   const handleSignup = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(details);
-    enqueueSnackbar({
-      message: "signup successfull",
+    enqueueSnackbar("signup successfull", {
       variant: "success",
     });
   };
@@ -62,7 +61,7 @@ const Signup = () => {
 
           <form onSubmit={handleSignup} className="space-y-4">
             <Input
-              label="Username"
+              label="Email"
               attributes={{
                 id: "email",
                 name: "email",
@@ -71,6 +70,19 @@ const Signup = () => {
                 required: true,
                 onChange: handleChange,
                 value: details.email,
+                autoFocus: true,
+              }}
+            />
+            <Input
+              label="User Name"
+              attributes={{
+                id: "username",
+                name: "username",
+                type: "text",
+                placeholder: "example123",
+                required: true,
+                onChange: handleChange,
+                value: details.username,
                 autoFocus: true,
               }}
             />
