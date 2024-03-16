@@ -17,7 +17,6 @@ const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { enqueueSnackbar } = useSnackbar();
-  const navigate = useNavigate();
 
   const mobileScreen = useMediaQuery({
     query: "(max-width: 850px)",
@@ -32,14 +31,11 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         details.email as string,
         details.password as string,
       );
-      const user = res.user;
-      console.log(user);
-      navigate("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
         if (error.code.includes("auth/")) {
@@ -52,7 +48,6 @@ const Login = () => {
             variant: "error",
           });
         }
-        console.log(error.code);
       } else {
         enqueueSnackbar("something went wrong", {
           variant: "error",

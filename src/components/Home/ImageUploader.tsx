@@ -8,6 +8,7 @@ import UploaderOverlay from "./UploaderOverlay";
 import Spinner from "../../constants/Spinner";
 import { useSnackbar } from "notistack";
 import { DataContext } from "../../contexts/DataContext";
+import { v4 as uuid } from "uuid";
 
 const ImageUploader = () => {
   const authContext = useContext(AuthContext);
@@ -19,7 +20,7 @@ const ImageUploader = () => {
   const handleFileUpload = (file: any) => {
     setLoading(true);
     const data = {
-      name: file.name,
+      name: uuid() + file.name,
       size: file.size,
       type: file.type,
       imageUrl: "",
@@ -44,7 +45,6 @@ const ImageUploader = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           data.imageUrl = downloadURL;
-          console.log({ downloadURL });
           await updateDoc(doc(db, "files", authContext?.user?.uid), {
             files: arrayUnion(data),
           });

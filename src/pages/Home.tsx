@@ -16,9 +16,7 @@ const Home = (props: Props): ReactElement => {
         {dataContext?.data &&
           dataContext?.data.map(({ imageUrl, type, name }, i) => {
             const videoUrl = imageUrl + "." + type.split("/")[1];
-            if (type.split("/")[0] === "video") {
-              console.log(videoUrl);
-            }
+
             return (
               <div
                 className="relative h-[100px] w-[100px] max-w-[150px] grow overflow-hidden rounded-md bg-black sm:h-[150px] sm:w-[150px]"

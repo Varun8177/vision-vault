@@ -11,7 +11,7 @@ const Overviews = (props: Props) => {
   const overviewData: OverviewItemType[] = [
     {
       title: "Total space used",
-      value: "5GB",
+      value: `${dataContext?.totalSize}MB`,
     },
     {
       title: "Images Uploaded",

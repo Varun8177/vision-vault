@@ -16,6 +16,7 @@ type DataContextType = {
   handleNewFileAdded: (file: FileDataType) => void;
   videoSize: number;
   imageSize: number;
+  totalSize: number;
 };
 
 export const DataContext = createContext<DataContextType | null>(null);
@@ -29,6 +30,7 @@ const DataContextProvider = ({
   const [files, setFiles] = useState<FileDataType[]>([]);
   const [videoSize, setVideoSize] = useState<number>(0);
   const [imageSize, setImageSize] = useState<number>(0);
+  const [totalSize, setTotalSize] = useState<number>(0);
   const { enqueueSnackbar } = useSnackbar();
 
   const calculateSize = (files: FileDataType[]) => {
@@ -47,11 +49,17 @@ const DataContextProvider = ({
       }
       return acc;
     }, 0);
+    const totalSize = files.reduce((acc, file) => {
+      const val: number = Number(acc + file.size);
+      return val;
+    }, 0);
     const videoSizeGB = +(videoSize / (1024 * 1024)).toFixed(1);
     const imageSizeGB = +(imageSize / (1024 * 1024)).toFixed(1);
+    const totalSizeGB = +(totalSize / (1024 * 1024)).toFixed(1);
 
     setImageSize(imageSizeGB);
     setVideoSize(videoSizeGB);
+    setTotalSize(totalSizeGB);
   };
 
   const getFiles = async (): Promise<void> => {
@@ -89,7 +97,13 @@ const DataContextProvider = ({
 
   return (
     <DataContext.Provider
-      value={{ data: files, handleNewFileAdded, imageSize, videoSize }}
+      value={{
+        data: files,
+        handleNewFileAdded,
+        imageSize,
+        videoSize,
+        totalSize,
+      }}
     >
       {children}
     </DataContext.Provider>
