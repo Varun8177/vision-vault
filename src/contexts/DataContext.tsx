@@ -75,6 +75,7 @@ const DataContextProvider = ({
   const handleNewFileAdded = (file: FileDataType) => {
     const temp: FileDataType[] = [file, ...files];
     setFiles(temp);
+    calculateSize(temp);
   };
 
   useEffect(() => {
