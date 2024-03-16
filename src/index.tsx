@@ -5,6 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
+import { AuthContextProvider } from "./contexts/AuthContext";
+import DataContextProvider from "./contexts/DataContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -20,7 +22,11 @@ root.render(
         maxSnack={3}
         autoHideDuration={3000}
       >
-        <App />
+        <AuthContextProvider>
+          <DataContextProvider>
+            <App />
+          </DataContextProvider>
+        </AuthContextProvider>
       </SnackbarProvider>
     </BrowserRouter>
   </React.StrictMode>,
