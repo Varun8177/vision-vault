@@ -9,6 +9,7 @@ import Spinner from "../../constants/Spinner";
 import { useSnackbar } from "notistack";
 import { DataContext } from "../../contexts/DataContext";
 import { v4 as uuid } from "uuid";
+import { twMerge } from "tailwind-merge";
 
 const ImageUploader = () => {
   const authContext = useContext(AuthContext);
@@ -26,9 +27,8 @@ const ImageUploader = () => {
       imageUrl: "",
     };
     const storageRef = ref(storage, data.name);
-    const uploadTask = uploadBytesResumable(storageRef, file, {
-      contentType: "video/mp4",
-    });
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -78,7 +78,12 @@ const ImageUploader = () => {
         accept="image/*, video/*"
       />
       <label htmlFor="imageuploader2">
-        <div className="relative flex h-full w-full  grow cursor-pointer flex-col items-center justify-center gap-4 rounded-md border border-blue-500 p-4 text-center">
+        <div
+          className={twMerge(
+            "relative flex h-full w-full  grow cursor-pointer flex-col items-center justify-center gap-4 rounded-md border border-blue-500 p-4 text-center",
+            loading && "cursor-not-allowed",
+          )}
+        >
           {loading ? (
             <Spinner />
           ) : (

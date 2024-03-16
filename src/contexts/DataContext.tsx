@@ -53,13 +53,13 @@ const DataContextProvider = ({
       const val: number = Number(acc + file.size);
       return val;
     }, 0);
-    const videoSizeGB = +(videoSize / (1024 * 1024)).toFixed(1);
-    const imageSizeGB = +(imageSize / (1024 * 1024)).toFixed(1);
-    const totalSizeGB = +(totalSize / (1024 * 1024)).toFixed(1);
+    const videoSizeMB = +(videoSize / (1024 * 1024)).toFixed(1);
+    const imageSizeMB = +(imageSize / (1024 * 1024)).toFixed(1);
+    const totalSizeMB = +(totalSize / (1024 * 1024)).toFixed(1);
 
-    setImageSize(imageSizeGB);
-    setVideoSize(videoSizeGB);
-    setTotalSize(totalSizeGB);
+    setImageSize(imageSizeMB);
+    setVideoSize(videoSizeMB);
+    setTotalSize(totalSizeMB);
   };
 
   const getFiles = async (): Promise<void> => {
@@ -93,7 +93,7 @@ const DataContextProvider = ({
   useEffect(() => {
     getFiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authContext]);
+  }, [authContext?.user?.uid]);
 
   return (
     <DataContext.Provider

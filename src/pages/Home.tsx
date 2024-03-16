@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import { ReactElement, useContext } from "react";
 import ImageUploader from "../components/Home/ImageUploader";
 import Overviews from "../components/Home/Overviews";
 import { DataContext } from "../contexts/DataContext";
@@ -11,7 +11,7 @@ const Home = (props: Props): ReactElement => {
   return (
     <div className="m-auto mt-4 w-[90%] space-y-4">
       <Overviews />
-      <div className="m-auto flex w-fit flex-wrap justify-center gap-4 md:justify-start">
+      <div className="flex w-full flex-wrap justify-center gap-4 md:justify-start">
         <ImageUploader />
         {dataContext?.data &&
           dataContext?.data.map(({ imageUrl, type, name }, i) => {
@@ -29,7 +29,7 @@ const Home = (props: Props): ReactElement => {
                     src={videoUrl}
                     title={name}
                     className="rounded-md"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share ;fullscreen"
                   ></iframe>
                 ) : (
                   <img
