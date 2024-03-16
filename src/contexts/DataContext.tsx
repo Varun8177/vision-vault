@@ -9,6 +9,7 @@ import { FileDataType } from "../utils/types";
 import { AuthContext } from "./AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { useSnackbar } from "notistack";
 
 type DataContextType = {
   data: FileDataType[];
@@ -28,6 +29,7 @@ const DataContextProvider = ({
   const [files, setFiles] = useState<FileDataType[]>([]);
   const [videoSize, setVideoSize] = useState<number>(0);
   const [imageSize, setImageSize] = useState<number>(0);
+  const { enqueueSnackbar } = useSnackbar();
 
   const calculateSize = (files: FileDataType[]) => {
     const videoSize = files.reduce((acc, file) => {
@@ -62,13 +64,15 @@ const DataContextProvider = ({
           setFiles(temp);
           calculateSize(temp);
         } else {
-          console.log("No files found for the user");
+          enqueueSnackbar("Error fetching files,please try again", {
+            variant: "error",
+          });
         }
       } catch (error) {
-        console.error("Error fetching files:", error);
+        enqueueSnackbar("Error fetching files,please try again", {
+          variant: "error",
+        });
       }
-    } else {
-      console.log("No user");
     }
   };
 
