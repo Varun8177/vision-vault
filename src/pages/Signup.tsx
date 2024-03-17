@@ -121,7 +121,7 @@ const Signup = () => {
                 id: "password",
                 name: "password",
                 type: "password",
-                placeholder: "At least 8 characters",
+                placeholder: "At least 6 characters",
                 required: true,
                 onChange: handleChange,
                 value: details.password,

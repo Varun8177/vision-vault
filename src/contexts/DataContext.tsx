@@ -17,6 +17,8 @@ type DataContextType = {
   videoSize: number;
   imageSize: number;
   totalSize: number;
+  loading: boolean;
+  emptyData: () => void;
 };
 
 export const DataContext = createContext<DataContextType | null>(null);
@@ -28,6 +30,7 @@ const DataContextProvider = ({
 }): ReactElement => {
   const authContext = useContext(AuthContext);
   const [files, setFiles] = useState<FileDataType[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [videoSize, setVideoSize] = useState<number>(0);
   const [imageSize, setImageSize] = useState<number>(0);
   const [totalSize, setTotalSize] = useState<number>(0);
@@ -64,6 +67,7 @@ const DataContextProvider = ({
 
   const getFiles = async (): Promise<void> => {
     if (authContext?.user) {
+      setLoading(true);
       try {
         const res = await getDoc(doc(db, "files", authContext.user.uid));
         const file = res.data();
@@ -71,15 +75,13 @@ const DataContextProvider = ({
           const temp: FileDataType[] = file.files;
           setFiles(temp);
           calculateSize(temp);
-        } else {
-          enqueueSnackbar("Error fetching files,please try again", {
-            variant: "error",
-          });
         }
       } catch (error) {
         enqueueSnackbar("Error fetching files,please try again", {
           variant: "error",
         });
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -90,6 +92,9 @@ const DataContextProvider = ({
     calculateSize(temp);
   };
 
+  const emptyData = (): void => {
+    setFiles([]);
+  };
   useEffect(() => {
     getFiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,6 +108,8 @@ const DataContextProvider = ({
         imageSize,
         videoSize,
         totalSize,
+        loading,
+        emptyData,
       }}
     >
       {children}
