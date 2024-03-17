@@ -19,7 +19,7 @@ const Home = (props: Props): ReactElement => {
           <ImageUploader />
           {dataContext?.data &&
             dataContext?.data.map(({ imageUrl, type, name }, i) => {
-              const videoUrl = imageUrl + "." + type.split("/")[1];
+              const videoUrl = imageUrl;
 
               return (
                 <div
@@ -27,14 +27,14 @@ const Home = (props: Props): ReactElement => {
                   key={`${imageUrl}${i}`}
                 >
                   {type.split("/")[0] === "video" ? (
-                    <iframe
+                    <video
                       width="150"
                       height="150"
-                      src={videoUrl}
-                      title={name}
-                      className="rounded-md"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share ;fullscreen"
-                    ></iframe>
+                      controls
+                      className="h-full w-full"
+                    >
+                      <source src={videoUrl} type={type} />
+                    </video>
                   ) : (
                     <img
                       src={imageUrl}
