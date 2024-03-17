@@ -12,7 +12,7 @@ const Navbar = (props: Props) => {
   return (
     <div className="flex w-full items-center justify-between border-b bg-[#161717] px-8 py-2 text-white">
       <img
-        src="https://firebasestorage.googleapis.com/v0/b/vision-vault-68501.appspot.com/o/vision-vault-logo.png?alt=media&token=af5406ef-b6ed-400e-8373-30a896eed279"
+        src="https://firebasestorage.googleapis.com/v0/b/vision-vault-68501.appspot.com/o/vision-vault-logo.png?alt=media&token=88afd06b-9138-438d-b419-c5f856e167c9"
         alt="laptop-logo"
         className="h-14 w-fit cursor-pointer object-contain"
       />
