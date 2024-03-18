@@ -19,9 +19,6 @@ const OverviewCard = ({ index = 0, title = "", value = "" }: Props) => {
       <div className="space-y-4">
         <p className="text-lg font-semibold">{title}</p>
         <p className="text-3xl font-semibold">{value}</p>
-        <p className="cursor-pointer text-sm font-semibold underline">
-          View entire list
-        </p>
       </div>
       <img
         src="https://res.cloudinary.com/megamart/image/upload/f_auto,q_auto/v1/Analytics%20Dashboard/qp483ydrergexxbp2bv7"
@@ -29,14 +26,6 @@ const OverviewCard = ({ index = 0, title = "", value = "" }: Props) => {
         className="absolute right-0 top-0 h-20 object-contain lg:h-auto lg:w-auto"
         draggable="false"
       />
-      {/* <img
-        src={overviewImage}
-        alt="dummy-img"
-        className={`absolute bottom-0 right-0 z-10 object-contain transition-transform duration-1000 ${
-          isHovered ? "-translate-y-1" : "translate-y-0"
-        }`}
-        draggable="false"
-      /> */}
     </div>
   );
 };
